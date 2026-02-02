@@ -1,4 +1,4 @@
-package cl.duoc.app.model.dto;
+package cl.duoc.app.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -17,7 +17,5 @@ public class InitTransaction {
     private int  amount;
     @JsonProperty("return_url")
     private String returnUrl;
-
-
 
 }

@@ -1,4 +1,4 @@
-package cl.duoc.app.model.dto;
+package cl.duoc.app.model;
 
 
 import lombok.*;
