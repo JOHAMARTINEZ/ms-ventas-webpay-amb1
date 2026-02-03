@@ -4,11 +4,7 @@ import cl.duoc.app.model.InitTransaction;
 import cl.duoc.app.model.InitTransactionResponse;
 import cl.duoc.app.model.dto.TransactionDTO;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name = "svc-webpay", url = "https://webpay3gint.transbank.cl")
 public interface IWebPayFeignClient {
@@ -28,4 +24,19 @@ public interface IWebPayFeignClient {
             @RequestHeader("Tbk-Api-Key-Secret") String apiKeySecret,
             @PathVariable("token") String token
     );
+
+
+
+    // 🟡 Obtener el estado de una transacción (Status)
+    @GetMapping("/rswebpaytransaction/api/webpay/v1.2/transactions/{token}")
+    TransactionDTO getTransactionStatus(
+            @RequestHeader("Tbk-Api-Key-Id") String apiKeyId,
+            @RequestHeader("Tbk-Api-Key-Secret") String apiKeySecret,
+            @PathVariable("token") String token
+    );
+
+
+
+
+
 }

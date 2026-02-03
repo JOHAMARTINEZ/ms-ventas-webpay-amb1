@@ -36,4 +36,19 @@ public class WebPayService {
                 token
         );
     }
+    // 🟡 Obtener estado de la transacción
+    public TransactionDTO obtenerEstado(String token) {
+        return iWebPayFeignClient.getTransactionStatus(
+                apiKeyId,
+                apiKeySecret,
+                token
+        );
+    }
+
+
+
+
+
+
+
 }

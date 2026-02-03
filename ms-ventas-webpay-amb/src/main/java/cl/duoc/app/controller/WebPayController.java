@@ -5,12 +5,10 @@ import cl.duoc.app.model.InitTransactionResponse;
 import cl.duoc.app.model.dto.TransactionDTO;
 import cl.duoc.app.services.WebPayService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/webpay")
 public class WebPayController {
 
     @Autowired
@@ -24,11 +22,20 @@ public class WebPayController {
         return webPayService.iniciarTransaccion(initTransaction);
     }
 
-    // 🟢 retorno desde Transbank → commit
-    @PostMapping("/webpay/retorno")
-    public TransactionDTO retorno(
-            @RequestParam("token_ws") String token
+
+    // 🟡 Consultar estado de la transacción
+    @GetMapping("/estado/{token}")
+    public TransactionDTO obtenerEstado(
+            @PathVariable("token") String token
     ) {
+        return webPayService.obtenerEstado(token);
+    }
+
+
+    //  retorno desde Transbank → commit
+    @RequestMapping(value = "/retorno", method = {RequestMethod.GET, RequestMethod.POST})
+    public TransactionDTO retorno(@RequestParam("token_ws") String token) {
         return webPayService.confirmarTransaccion(token);
     }
+
 }
